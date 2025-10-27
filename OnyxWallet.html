@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Onyx Wallet</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#070707; /* black */
+      --panel:#0f1112; /* near-black */
+      --muted:#9aa3a8;
+      --accent:#c9a84b; /* luxurious gold */
+      --glass: rgba(255,255,255,0.03);
+      --card: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      font-family: 'Inter', system-ui, Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#050505 0%, #0b0b0b 100%);color:#eaf0f2;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px}
+    .container{width:100%;max-width:1100px;display:grid;grid-template-columns:360px 1fr;gap:28px}
+
+    /* sidebar card */
+    .card{background:var(--panel);border-radius:14px;padding:22px;box-shadow:0 8px 30px rgba(0,0,0,0.7);border:1px solid rgba(255,255,255,0.03)}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#000,#111);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.04)}
+    .logo svg{filter:drop-shadow(0 2px 8px rgba(0,0,0,0.7))}
+    h1{margin:0;font-size:18px;letter-spacing:1px}
+    .tag{color:var(--muted);font-size:12px;margin-top:4px}
+
+    .balance{margin-top:22px;padding:18px;border-radius:12px;background:var(--card);border:1px solid rgba(201,168,75,0.09)}
+    .bal-label{font-size:13px;color:var(--muted)}
+    .bal-amount{font-weight:700;font-size:28px;margin-top:6px}
+
+    .user-info{margin-top:18px;background:var(--glass);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
+    .user-row{display:flex;justify-content:space-between;gap:12px;align-items:center}
+    .user-details{display:flex;flex-direction:column}
+    .user-name{font-weight:600}
+    .muted{color:var(--muted);font-size:13px}
+    .phone{font-weight:600}
+
+    .note{margin-top:12px;font-size:13px;color:var(--muted);line-height:1.35}
+
+    /* actions */
+    .actions{display:flex;gap:10px;margin-top:16px}
+    .btn{position:relative;overflow:hidden;padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:600;transition:transform .14s ease,box-shadow .14s ease}
+    .btn:focus{outline:none;box-shadow:0 0 0 4px rgba(201,168,75,0.12)}
+    .btn:active{transform:translateY(1px) scale(.995)}
+
+    /* primary with glow */
+    .btn-primary{background:linear-gradient(90deg,var(--accent),#a78636);color:#060606;box-shadow:0 6px 18px rgba(201,168,75,0.12)}
+    .btn-primary:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(201,168,75,0.18)}
+
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .btn-ghost:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.6)}
+
+    /* ripple effect */
+    .btn .ripple{position:absolute;border-radius:50%;transform:scale(0);opacity:.6;pointer-events:none}
+    .ripple.animate{animation:ripple .7s ease-out}
+    @keyframes ripple{to{transform:scale(6);opacity:0}}
+
+    /* main area */
+    .main{display:flex;flex-direction:column;gap:18px}
+    .transactions{padding:18px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03)}
+    .section-title{display:flex;justify-content:space-between;align-items:center}
+    .section-title h2{margin:0;font-size:16px}
+    .section-title .muted{font-size:13px}
+
+    .tx-list{margin-top:14px;display:flex;flex-direction:column;gap:12px}
+    .tx{display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:10px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.02)}
+    .tx-left{display:flex;gap:12px;align-items:center}
+    .tx-sender{font-weight:600}
+    .tx-meta{color:var(--muted);font-size:13px}
+    .tx-amount{font-weight:700}
+    .credit{color:#6ee7b7}
+    .debit{color:#ff9d9d}
+
+    /* transfer form */
+    .transfer{padding:18px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.008));border:1px solid rgba(255,255,255,0.02)}
+    .field{display:flex;flex-direction:column;margin-bottom:10px}
+    label{font-size:13px;color:var(--muted);margin-bottom:6px}
+    input, select{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:10px;border-radius:8px;color:inherit}
+
+    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* responsive */
+    @media(max-width:900px){.container{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <aside class="card">
+      <div class="brand">
+        <div class="logo" aria-hidden>
+          <!-- onyx gem -->
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L22 8L17 22H7L2 8L12 2Z" fill="url(#g)"/><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#0b0b0b"/><stop offset="1" stop-color="#1f1f1f"/></linearGradient></defs></svg>
+        </div>
+        <div>
+          <h1>Onyx Wallet</h1>
+          <div class="tag">Digital Vault</div>
+        </div>
+      </div>
+
+      <div class="balance">
+        <div class="bal-label">الرصيد الكلي</div>
+        <div class="bal-amount">$1453</div>
+        <div class="muted" style="margin-top:8px">آخر تحويل: <strong style="color:var(--accent)">642,34$</strong> (Paypal)</div>
+      </div>
+
+      <div class="user-info">
+        <div class="user-row">
+          <div class="user-details">
+            <div class="user-name">Beshoy Gamal Zaki</div>
+            <div class="muted">Country — Egypt</div>
+          </div>
+          <div class="phone">01099870286</div>
+        </div>
+
+        <div class="note">This account is linked to a device-based digital phone signature — the account unlocks after verifying the accessing device.</div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="transferBtn">تحويل أموال<span class="ripple"></span></button>
+        <button class="btn btn-ghost" id="docsBtn">تفاصيل الحساب<span class="ripple"></span></button>
+      </div>
+
+      <div style="margin-top:16px;font-size:13px;color:var(--muted)">
+        طرق التحويل:
+        <ul style="padding-left:18px;margin:8px 0">
+          <li>محافظ رقمية: OnyxPay, ShadowWallet, MoonWallet</li>
+          <li>حسابات بنكية: Banque Egypte — رقم IBAN: EG00 0000 0000</li>
+          <li>بوابات دفع: Paypal, Stripe</li>
+        </ul>
+      </div>
+
+    </aside>
+
+    <main class="main">
+      <section class="transactions card">
+        <div class="section-title">
+          <h2>سجل التحويلات</h2>
+          <div class="muted">عرض آخر 10 تحويلات</div>
+        </div>
+
+        <div class="tx-list">
+          <!-- last transfer -->
+          <div class="tx">
+            <div class="tx-left">
+              <div style="width:44px;height:44px;border-radius:8px;background:rgba(255,255,255,0.02);display:flex;align-items:center;justify-content:center;font-weight:700">P</div>
+              <div>
+                <div class="tx-sender">Paypal — Beshoy's repo g34</div>
+                <div class="tx-meta">تاريخ: 15/4/2025 · من: Paypal account</div>
+              </div>
+            </div>
+            <div class="tx-amount debit">-642,34$</div>
+          </div>
+
+          <!-- example older entries -->
+          <div class="tx">
+            <div class="tx-left">
+              <div style="width:44px;height:44px;border-radius:8px;background:rgba(255,255,255,0.02);display:flex;align-items:center;justify-content:center;font-weight:700">B</div>
+              <div>
+                <div class="tx-sender">Internal transfer — OnyxPay</div>
+                <div class="tx-meta">تاريخ: 02/03/2025</div>
+              </div>
+            </div>
+            <div class="tx-amount credit">+200.00$</div>
+          </div>
+
+          <div class="tx">
+            <div class="tx-left">
+              <div style="width:44px;height:44px;border-radius:8px;background:rgba(255,255,255,0.02);display:flex;align-items:center;justify-content:center;font-weight:700">S</div>
+              <div>
+                <div class="tx-sender">Bank — Banque Egypte</div>
+                <div class="tx-meta">تاريخ: 18/01/2025</div>
+              </div>
+            </div>
+            <div class="tx-amount debit">-50.00$</div>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="transfer card">
+        <div class="section-title"><h2>نموذج تحويل</h2><div class="muted">النماذج هنا للعرض</div></div>
+        <form id="transferForm">
+          <div class="field">
+            <label>إلى (محفظة أو بنك)</label>
+            <input id="toField" placeholder="مثال: OnyxPay / IBAN / Paypal email" />
+          </div>
+          <div class="field">
+            <label>المبلغ</label>
+            <input id="amountField" placeholder="$0.00" />
+          </div>
+          <div class="field">
+            <label>نوع التحويل</label>
+            <select id="typeField">
+              <option>محفظة رقمية</option>
+              <option>حساب بنكي</option>
+              <option>Paypal</option>
+            </select>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:8px">
+            <button class="btn btn-primary" type="submit">إرسال<span class="ripple"></span></button>
+            <button class="btn btn-ghost" type="button" id="showDocs">عرض التوثيق<span class="ripple"></span></button>
+          </div>
+        </form>
+
+        <footer>Onyx Wallet © 2025</footer>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    // ripple helper
+    function createRipple(e){
+      const btn = e.currentTarget;
+      const circle = document.createElement('span');
+      circle.className = 'ripple';
+      const rect = btn.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      circle.style.width = circle.style.height = size + 'px';
+      circle.style.left = (e.clientX - rect.left - size/2) + 'px';
+      circle.style.top = (e.clientY - rect.top - size/2) + 'px';
+      btn.appendChild(circle);
+      requestAnimationFrame(()=>{ circle.classList.add('animate'); });
+      setTimeout(()=>{ circle.remove(); }, 700);
+    }
+
+    document.querySelectorAll('.btn').forEach(b=>{
+      b.addEventListener('click', createRipple);
+    });
+
+    // basic transfer handling (client-side)
+    const form = document.getElementById('transferForm');
+    const balanceEl = document.querySelector('.bal-amount');
+    let balance = 1453.00;
+
+    form.addEventListener('submit', (ev)=>{
+      ev.preventDefault();
+      const to = document.getElementById('toField').value.trim();
+      const amtRaw = document.getElementById('amountField').value.trim().replace(/[^0-9\.\,]/g,'').replace(',', '.');
+      const amt = parseFloat(amtRaw) || 0;
+      const type = document.getElementById('typeField').value;
+      if(!to || !amt || amt <= 0){
+        alert('Please provide a valid destination and amount.');
+        return;
+      }
+      // client-side update
+      balance = Math.round((balance - amt) * 100) / 100;
+      balanceEl.textContent = '$' + balance;
+
+      // add transaction entry visually
+      const list = document.querySelector('.tx-list');
+      const tx = document.createElement('div'); tx.className='tx';
+      tx.innerHTML = `
+        <div class="tx-left">
+          <div style="width:44px;height:44px;border-radius:8px;background:rgba(255,255,255,0.02);display:flex;align-items:center;justify-content:center;font-weight:700">T</div>
+          <div>
+            <div class="tx-sender">${type} — ${to}</div>
+            <div class="tx-meta">تاريخ: ${new Date().toLocaleDateString('en-GB')}</div>
+          </div>
+        </div>
+        <div class="tx-amount debit">-${amt}$</div>
+      `;
+      list.prepend(tx);
+
+      // brief confirmation
+      alert('Transfer processed.');
+      form.reset();
+    });
+
+    // docs button
+    document.getElementById('showDocs').addEventListener('click', ()=>{
+      alert('Account details displayed.');
+    });
+
+    // optional: transfer button opens the form focus
+    document.getElementById('transferBtn').addEventListener('click', ()=>{
+      document.getElementById('toField').focus();
+    });
+  </script>
+</body>
+</html>
