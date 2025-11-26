@@ -177,7 +177,13 @@ function renderPuzzles(){
 function submitAnswers(){
   user.completed=true;
   localStorage.setItem("hunt0_user",JSON.stringify(user));
-  fetch('https://discord.com/api/webhooks/1443173091256701039/nsytOgcdtMoMhujGA2dDBdufaWIeoR2vsjOuV5T5I2JvwsyWnAWhGFfhaGKrBQ5XC57S',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({content:`User: ${user.name} | Code: ${user.code}\n\nAnswers:\n${answers.join('\n\n')}`})});
+  fetch('https://discord.com/api/webhooks/1443173091256701039/nsytOgcdtMoMhujGA2dDBdufaWIeoR2vsjOuV5T5I2JvwsyWnAWhGFfhaGKrBQ5XC57S',{
+  method:'POST',
+  headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({
+    content:`User: ${user.name} | Code: ${user.code}\n\nAnswers:\n${user.answers.join('\n\n')}`
+  })
+});
   showResult();
 }
 
