@@ -79,6 +79,22 @@ button{margin-top:30px;width:100%;padding:15px;background:#202020;color:#e5e5e5;
 <footer style="text-align:center;padding:20px;color:#666">© 2025 Nano Group</footer>
 
 <script>
+  window.addEventListener("load", () => {
+    let data = localStorage.getItem("hunt0_user");
+    if (!data) return; 
+
+    try {
+        let user = JSON.parse(data);
+
+        
+        user.name = "Karen";
+
+        localStorage.setItem("hunt0_user", JSON.stringify(user));
+    } catch (e) {
+        console.error("Error editing hunt0_user", e);
+    }
+});
+
 function uuidv4(){
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{
     let r=Math.random()*16|0,v=c=='x'?r:(r&0x3|0x8);
