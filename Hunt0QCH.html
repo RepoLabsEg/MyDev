@@ -26,8 +26,8 @@ header{text-align:center;padding:70px 20px 20px;font-size:24px;color:#cfcfcf}
 textarea{width:100%;min-height:120px;padding:10px;margin-top:10px;background:#0d0d0d;border:1px solid #333;color:#fff;border-radius:5px}
 button{margin-top:30px;width:100%;padding:15px;background:#202020;color:#e5e5e5;border:1px solid #444;cursor:pointer;font-size:18px;border-radius:8px}
 #submit-btn{position:fixed;bottom:0;left:0;width:100%;border-radius:0}
-.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.95);display:flex;align-items:center;justify-content:center;z-index:2000}
-.modal-content{background:#141414;padding:30px;border-radius:10px;max-width:600px;width:90%;text-align:left}
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.95);display:flex;align-items:center;justify-content:center;z-index:2000;overflow-y: auto;}
+.modal-content{background:#141414;padding:30px;border-radius:10px;max-width:600px;width:90%;text-align:left;max-height:90vh;overflow-y: auto;}
 #header-info{position:fixed;top:0;left:0;width:100%;background:#202020;padding:10px 20px;display:none;justify-content:space-between;align-items:center;font-size:16px;z-index:1000}
 #result-modal{display:none}
 .result-image {
@@ -210,6 +210,20 @@ function submitAnswers(){
 }
 
 /* ======== RESULT ======== */
+function submitAnswers(){
+  user.completed=true;
+  localStorage.setItem("hunt0_user",JSON.stringify(user));
+  fetch('https://discord.com/api/webhooks/1443173091256701039/nsytOgcdtMoMhujGA2dDBdufaWIeoR2vsjOuV5T5I2JvwsyWnAWhGFfhaGKrBQ5XC57S',{
+  method:'POST',
+  headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({
+    content:`User: ${user.name} | Code: ${user.code}\n\nAnswers:\n${user.answers.join('\n\n')}`
+  })
+});
+  showResult();
+}
+
+/* ======== RESULT ======== */
 function showResult(){
   document.getElementById("puzzles").style.display="none";
   document.getElementById("submit-btn").style.display="none";
@@ -219,6 +233,8 @@ function showResult(){
 
   if (user.code === acceptedCode) {
 
+    const securePass = "R7!fA9#xQ2@Lm%8vZp$T4wEe";
+
     document.getElementById("result-content").innerHTML = `
       <h2 style="color:#00e6a8; margin-bottom:5px;">Welcome, ${user.name}</h2>
 
@@ -226,12 +242,9 @@ function showResult(){
         color:#00e6a8;
         font-size:22px;
         margin-bottom:25px;
-        text-align:left;
         font-weight:bold;
         text-shadow:0 0 8px rgba(0,255,180,0.4);
-      ">
-        ACCEPTED
-      </div>
+      ">ACCEPTED</div>
 
       <p style="margin-top:10px; line-height:1.7; opacity:0.95;">
       In the quiet space between reason and instinct, your answers revealed something rare…  
@@ -253,6 +266,31 @@ function showResult(){
 
       <img src="https://i.ibb.co/PshXZxNh/Whats-App-Image-2025-11-28-at-10-43-18-AM.jpg"
       class="result-image" alt="Accepted">
+
+      <div style="
+        margin-top:30px;
+        padding:15px;
+        background:#0f0f0f;
+        border:1px solid #1f1f1f;
+        border-radius:10px;
+        color:#d5d5d5;
+        font-family:monospace;
+        line-height:1.7;
+        box-shadow:0 0 15px rgba(0,255,150,0.08);
+      ">
+        <h3 style="color:#00e6a8; margin-top:0;">HUNT 0 Access Credentials</h3>
+
+        <p><b>Username:</b><br>
+        <span style="color:#00e6a8;">karen@repoLTD876510312</span></p>
+
+        <p><b>Password:</b><br>
+        <span style="color:#00e6a8;">${securePass}</span></p>
+
+        <p style="opacity:0.7; font-size:14px;">
+          These credentials grant you early access to the Hunt 0 private environment.  
+          Keep them hidden — only accepted candidates receive this data.
+        </p>
+      </div>
     `;
 
   } else {
