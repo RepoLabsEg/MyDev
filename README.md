@@ -1,56 +1,73 @@
-function showResult(){
-  document.getElementById("puzzles").style.display="none";
-  document.getElementById("submit-btn").style.display="none";
-  document.getElementById("result-modal").style.display="flex";
+# Welcome to your Lovable project
 
-  const acceptedCode = "PUT-YOUR-SPECIAL-CODE-HERE";
+## Project info
 
-  if (user.code === acceptedCode) {
+**URL**: https://lovable.dev/projects/09b24fdf-c11b-46c8-be6d-caba7d6c0f5a
 
-    document.getElementById("result-content").innerHTML = `
-      <h2 style="color:#00e6a8; margin-bottom:5px;">Welcome, ${user.name}</h2>
+## How can I edit this code?
 
-      <div style="
-        color:#00e6a8;
-        font-size:22px;
-        margin-bottom:25px;
-        text-align:left;
-        font-weight:bold;
-        text-shadow:0 0 8px rgba(0,255,180,0.4);
-      ">
-        ACCEPTED
-      </div>
+There are several ways of editing your application.
 
-      <p style="margin-top:10px; line-height:1.7; opacity:0.95;">
-      In the quiet space between reason and instinct, your answers revealed something rare…  
-      a mind that does not simply choose — but understands.  
-      A thinker who does not just observe — but perceives what others overlook.
-      </p>
+**Use Lovable**
 
-      <p style="margin-top:15px; line-height:1.7; opacity:0.9;">
-      Your responses were examined by the analysts of <b>Repo Lab</b>,  
-      and the pattern of your decisions reflected depth, clarity, and controlled intuition.  
-      Not everyone reaches this stage — but you did.
-      </p>
+Simply visit the [Lovable Project](https://lovable.dev/projects/09b24fdf-c11b-46c8-be6d-caba7d6c0f5a) and start prompting.
 
-      <p style="margin-top:15px; line-height:1.7; opacity:0.8;">
-      This message is shown only to you, and to the very few who qualified for <b>HUNT 0</b>.  
-      Soon, the official list of accepted challengers will be revealed through our channels…  
-      but for now, consider this your silent nod — your invitation into the unknown.
-      </p>
+Changes made via Lovable will be committed automatically to this repo.
 
-      <img src="https://i.ibb.co/TMctgg22/Whats-App-Image-2025-11-26-at-3-00-23-PM-1.jpg"
-      class="result-image" alt="Accepted">
-    `;
+**Use your preferred IDE**
 
-  } else {
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
-    document.getElementById("result-content").innerHTML = `
-      <h2>Your Session Completed</h2>
-      <p>Name: ${user.name}</p>
-      <p>Code: ${user.code}</p>
-      <p>Your answers have been submitted successfully.</p>
-      <img src="https://i.ibb.co/TMctgg22/Whats-App-Image-2025-11-26-at-3-00-23-PM-1.jpg" class="result-image" alt="Success">
-    `;
-  }
-}
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+
+Follow these steps:
+
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone <YOUR_GIT_URL>
+
+# Step 2: Navigate to the project directory.
+cd <YOUR_PROJECT_NAME>
+
+# Step 3: Install the necessary dependencies.
+npm i
+
+# Step 4: Start the development server with auto-reloading and an instant preview.
+npm run dev
+```
+
+**Edit a file directly in GitHub**
+
+- Navigate to the desired file(s).
+- Click the "Edit" button (pencil icon) at the top right of the file view.
+- Make your changes and commit the changes.
+
+**Use GitHub Codespaces**
+
+- Navigate to the main page of your repository.
+- Click on the "Code" button (green button) near the top right.
+- Select the "Codespaces" tab.
+- Click on "New codespace" to launch a new Codespace environment.
+- Edit files directly within the Codespace and commit and push your changes once you're done.
+
+## What technologies are used for this project?
+
+This project is built with:
+
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
+
+## How can I deploy this project?
+
+Simply open [Lovable](https://lovable.dev/projects/09b24fdf-c11b-46c8-be6d-caba7d6c0f5a) and click on Share -> Publish.
+
+## Can I connect a custom domain to my Lovable project?
+
+Yes, you can!
+
+To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+
+Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
