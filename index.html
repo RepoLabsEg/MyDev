@@ -1,29 +1,1603 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HUNT 0 — The Thirteenth Guest | Mystery Challenge</title>
-    <meta name="description" content="Enter the psychological mystery of The Thirteenth Guest. A noir thriller puzzle where perception meets reality. Who sat in the 13th chair?" />
-    <meta name="author" content="Nano Group" />
-    <meta name="keywords" content="mystery, puzzle, ARG, thriller, psychological, noir, investigation" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HUNT 0 — The Thirteenth Guest | Mystery Challenge</title>
+  <meta name="description" content="Enter the psychological mystery of The Thirteenth Guest. A noir thriller puzzle where perception meets reality. Who sat in the 13th chair?">
+  <meta name="author" content="Nano Group">
+  <meta name="keywords" content="mystery, puzzle, ARG, thriller, psychological, noir, investigation">
+  
+  <meta property="og:title" content="HUNT 0 — The Thirteenth Guest">
+  <meta property="og:description" content="A psychological mystery challenge. Some presences are remembered, yet were never truly seen.">
+  <meta property="og:type" content="website">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="HUNT 0 — The Thirteenth Guest">
+  <meta name="twitter:description" content="A psychological mystery challenge. Some presences are remembered, yet were never truly seen.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ===== CSS RESET & BASE ===== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
     
-    <meta property="og:title" content="HUNT 0 — The Thirteenth Guest" />
-    <meta property="og:description" content="A psychological mystery challenge. Some presences are remembered, yet were never truly seen." />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@NanoGroup" />
-    <meta name="twitter:title" content="HUNT 0 — The Thirteenth Guest" />
-    <meta name="twitter:description" content="A psychological mystery challenge. Some presences are remembered, yet were never truly seen." />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    :root {
+      /* Colors */
+      --background: 12 10% 6%;
+      --foreground: 45 10% 90%;
+      --card: 12 8% 10%;
+      --card-foreground: 45 10% 90%;
+      --muted: 12 5% 18%;
+      --muted-foreground: 45 5% 55%;
+      --border: 12 8% 18%;
+      --gold: 43 74% 49%;
+      --gold-glow: 43 100% 60%;
+      --burgundy: 350 45% 25%;
+      --burgundy-glow: 350 60% 40%;
+      --ash: 12 5% 35%;
+      
+      /* Typography */
+      --font-cinematic: 'Cinzel', serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
     
-    <link rel="canonical" href="/" />
-  </head>
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: var(--font-body);
+      background-color: hsl(var(--background));
+      color: hsl(var(--foreground));
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slowZoom {
+      from { transform: scale(1); }
+      to { transform: scale(1.05); }
+    }
+    
+    @keyframes parallaxDrift {
+      0%, 100% { transform: scale(1.1) translate(0, 0); }
+      25% { transform: scale(1.1) translate(-1%, -1%); }
+      50% { transform: scale(1.1) translate(0, -2%); }
+      75% { transform: scale(1.1) translate(1%, -1%); }
+    }
+    
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.5; box-shadow: 0 0 20px hsl(var(--gold) / 0.3); }
+      50% { opacity: 1; box-shadow: 0 0 40px hsl(var(--gold) / 0.5); }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes glitch {
+      0%, 100% { transform: translate(0); filter: hue-rotate(0deg); }
+      10% { transform: translate(-2px, 2px); filter: hue-rotate(90deg); }
+      20% { transform: translate(2px, -2px); filter: hue-rotate(180deg); }
+      30% { transform: translate(-2px, -2px); filter: hue-rotate(270deg); }
+      40% { transform: translate(2px, 2px); filter: hue-rotate(360deg); }
+      50% { transform: translate(0); filter: hue-rotate(0deg); }
+    }
+    
+    @keyframes reveal {
+      from { opacity: 0; transform: scale(0.95); filter: blur(10px); }
+      to { opacity: 1; transform: scale(1); filter: blur(0); }
+    }
+    
+    @keyframes expand {
+      from { opacity: 0; max-height: 0; }
+      to { opacity: 1; max-height: 500px; }
+    }
+    
+    @keyframes grain {
+      0%, 100% { transform: translate(0, 0); }
+      10% { transform: translate(-5%, -10%); }
+      20% { transform: translate(-15%, 5%); }
+      30% { transform: translate(7%, -25%); }
+      40% { transform: translate(-5%, 25%); }
+      50% { transform: translate(-15%, 10%); }
+      60% { transform: translate(15%, 0%); }
+      70% { transform: translate(0%, 15%); }
+      80% { transform: translate(3%, 35%); }
+      90% { transform: translate(-10%, 10%); }
+    }
+    
+    /* ===== UTILITY CLASSES ===== */
+    .animate-fade-up { animation: fadeUp 0.7s ease-out forwards; }
+    .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+    .animate-pulse-glow { animation: pulseGlow 2s ease-in-out infinite; }
+    .animate-float { animation: float 3s ease-in-out infinite; }
+    .animate-parallax-drift { animation: parallaxDrift 30s ease-in-out infinite; }
+    .animate-glitch { animation: glitch 0.5s ease-in-out; }
+    .animate-reveal { animation: reveal 1s ease-out forwards; }
+    .animate-expand { animation: expand 0.5s ease-out forwards; }
+    
+    /* ===== GLOBAL EFFECTS ===== */
+    .grain-overlay {
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      right: -50%;
+      bottom: -50%;
+      width: 200%;
+      height: 200%;
+      background: transparent url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E") repeat;
+      opacity: 0.03;
+      pointer-events: none;
+      animation: grain 8s steps(10) infinite;
+      z-index: 9999;
+    }
+    
+    .vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 0%, hsl(var(--background)) 100%);
+      pointer-events: none;
+    }
+    
+    /* ===== GLASS CARD ===== */
+    .glass-card {
+      background: hsl(var(--card) / 0.8);
+      backdrop-filter: blur(12px);
+      border: 1px solid hsl(var(--border) / 0.5);
+      box-shadow: 0 8px 32px hsl(0 0% 0% / 0.3), inset 0 1px 0 hsl(var(--foreground) / 0.05);
+    }
+    
+    .glass-card-hover {
+      transition: all 0.3s ease;
+    }
+    
+    .glass-card-hover:hover {
+      border-color: hsl(var(--gold) / 0.3);
+      box-shadow: 0 8px 32px hsl(0 0% 0% / 0.4), 0 0 20px hsl(var(--gold) / 0.1), inset 0 1px 0 hsl(var(--foreground) / 0.08);
+      transform: translateY(-2px);
+    }
+    
+    /* ===== TYPOGRAPHY ===== */
+    .cinematic-title {
+      font-family: var(--font-cinematic);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    
+    .font-mono {
+      font-family: var(--font-mono);
+    }
+    
+    .font-cinematic {
+      font-family: var(--font-cinematic);
+    }
+    
+    /* ===== TAGS & BADGES ===== */
+    .evidence-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      background: hsl(var(--burgundy) / 0.3);
+      border: 1px solid hsl(var(--burgundy) / 0.5);
+      color: hsl(var(--burgundy-glow));
+    }
+    
+    .stamped {
+      font-family: var(--font-cinematic);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.5rem 1rem;
+      border: 2px solid hsl(var(--burgundy));
+      color: hsl(var(--burgundy-glow));
+      transform: rotate(-2deg);
+    }
+    
+    /* ===== BUTTONS ===== */
+    .btn-noir {
+      font-family: var(--font-cinematic);
+      font-size: 0.875rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, hsl(var(--burgundy)), hsl(350 45% 20%));
+      color: hsl(var(--foreground));
+      border: 1px solid hsl(var(--burgundy-glow) / 0.5);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    
+    .btn-noir:hover {
+      background: linear-gradient(135deg, hsl(var(--burgundy-glow)), hsl(var(--burgundy)));
+      box-shadow: 0 0 20px hsl(var(--burgundy) / 0.4);
+      transform: translateY(-2px);
+    }
+    
+    .btn-outline-gold {
+      font-family: var(--font-cinematic);
+      font-size: 0.875rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: transparent;
+      color: hsl(var(--gold));
+      border: 1px solid hsl(var(--gold) / 0.5);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    
+    .btn-outline-gold:hover {
+      background: hsl(var(--gold) / 0.1);
+      border-color: hsl(var(--gold));
+      box-shadow: 0 0 20px hsl(var(--gold) / 0.2);
+    }
+    
+    /* ===== DIVIDERS ===== */
+    .divider-gold {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, hsl(var(--gold) / 0.5), transparent);
+    }
+    
+    /* ===== GLOW EFFECTS ===== */
+    .glow-gold-text {
+      text-shadow: 0 0 20px hsl(var(--gold) / 0.5), 0 0 40px hsl(var(--gold) / 0.3);
+    }
+    
+    .text-gold { color: hsl(var(--gold)); }
+    .text-burgundy-glow { color: hsl(var(--burgundy-glow)); }
+    .text-ash { color: hsl(var(--ash)); }
+    .text-muted-foreground { color: hsl(var(--muted-foreground)); }
+    .text-foreground { color: hsl(var(--foreground)); }
+    .bg-burgundy { background-color: hsl(var(--burgundy)); }
+    .border-burgundy { border-color: hsl(var(--burgundy)); }
+    .border-gold { border-color: hsl(var(--gold)); }
+    
+    /* ===== TERMINAL PANEL ===== */
+    .terminal-panel {
+      background: linear-gradient(180deg, hsl(var(--card)), hsl(12 10% 8%));
+      border: 1px solid hsl(var(--border));
+    }
+    
+    .terminal-header {
+      background: hsl(var(--muted));
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid hsl(var(--border));
+    }
+    
+    /* ===== TABS ===== */
+    .tabs-container {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .tab-btn {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      padding: 0.5rem 1rem;
+      background: hsl(var(--muted) / 0.5);
+      border: 1px solid hsl(var(--border));
+      color: hsl(var(--muted-foreground));
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .tab-btn:hover {
+      background: hsl(var(--muted));
+      color: hsl(var(--foreground));
+    }
+    
+    .tab-btn.active {
+      background: hsl(var(--burgundy) / 0.3);
+      border-color: hsl(var(--burgundy));
+      color: hsl(var(--gold));
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease-out;
+    }
+    
+    /* ===== FORM ELEMENTS ===== */
+    .input-field {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: hsl(var(--muted) / 0.5);
+      border: 1px solid hsl(var(--border));
+      color: hsl(var(--foreground));
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      transition: all 0.3s ease;
+    }
+    
+    .input-field:focus {
+      outline: none;
+      border-color: hsl(var(--gold) / 0.5);
+      box-shadow: 0 0 10px hsl(var(--gold) / 0.1);
+    }
+    
+    .input-field::placeholder {
+      color: hsl(var(--muted-foreground));
+    }
+    
+    textarea.input-field {
+      resize: vertical;
+      min-height: 200px;
+    }
+    
+    /* ===== LAYOUT ===== */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    
+    .section {
+      padding: 5rem 1rem;
+      position: relative;
+    }
+    
+    /* ===== HERO SECTION ===== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      animation: parallaxDrift 30s ease-in-out infinite;
+    }
+    
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, hsl(var(--background) / 0.6), hsl(var(--background) / 0.4), hsl(var(--background)));
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 2rem;
+      max-width: 800px;
+    }
+    
+    .hero-card {
+      padding: 3rem;
+      border-radius: 0.5rem;
+    }
+    
+    .hero-title {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      margin-bottom: 1rem;
+    }
+    
+    .hero-subtitle {
+      font-size: clamp(1rem, 3vw, 1.75rem);
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    .hero-tagline {
+      font-style: italic;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+    
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    
+    .hero-buttons a,
+    .hero-buttons button {
+      padding: 0.875rem 2rem;
+      border-radius: 0.25rem;
+    }
+    
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .scroll-mouse {
+      width: 1.5rem;
+      height: 2.5rem;
+      border: 2px solid hsl(var(--gold) / 0.3);
+      border-radius: 1rem;
+      display: flex;
+      justify-content: center;
+    }
+    
+    .scroll-dot {
+      width: 0.25rem;
+      height: 0.75rem;
+      background: hsl(var(--gold) / 0.5);
+      border-radius: 1rem;
+      margin-top: 0.5rem;
+    }
+    
+    /* ===== CASE FILE ===== */
+    .case-file {
+      background: linear-gradient(180deg, transparent, hsl(var(--burgundy) / 0.05), transparent);
+    }
+    
+    .case-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .case-card {
+      max-width: 900px;
+      margin: 0 auto;
+      border-radius: 0.5rem;
+      padding: 2rem;
+    }
+    
+    .timeline-item {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid hsl(var(--border) / 0.5);
+    }
+    
+    .timeline-time {
+      font-family: var(--font-mono);
+      color: hsl(var(--gold));
+      min-width: 80px;
+    }
+    
+    /* ===== EVIDENCE BOARD ===== */
+    .evidence-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .evidence-card {
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: all 0.5s ease;
+    }
+    
+    .evidence-card.expanded {
+      grid-column: 1 / -1;
+    }
+    
+    .evidence-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    
+    .evidence-number {
+      font-family: var(--font-mono);
+      font-size: 1.5rem;
+      color: hsl(var(--gold) / 0.3);
+    }
+    
+    .evidence-quote {
+      font-style: italic;
+      padding-left: 1rem;
+      border-left: 2px solid hsl(var(--burgundy));
+      margin-bottom: 1rem;
+    }
+    
+    .evidence-detail {
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: all 0.5s ease;
+    }
+    
+    .evidence-card.expanded .evidence-detail {
+      max-height: 500px;
+      opacity: 1;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid hsl(var(--border));
+    }
+    
+    .evidence-expand {
+      text-align: center;
+      margin-top: 1rem;
+    }
+    
+    /* ===== WITNESSES ===== */
+    .witnesses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .witness-card {
+      border-radius: 0.5rem;
+      padding: 1.25rem;
+      transition: all 0.3s ease;
+    }
+    
+    .witness-card:hover .witness-name {
+      color: hsl(var(--gold));
+    }
+    
+    .witness-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+    
+    .witness-number {
+      font-family: var(--font-mono);
+      font-size: 1.5rem;
+      color: hsl(var(--gold) / 0.2);
+      transition: color 0.3s ease;
+    }
+    
+    .witness-card:hover .witness-number {
+      color: hsl(var(--gold) / 0.4);
+    }
+    
+    .witness-name {
+      font-family: var(--font-cinematic);
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      transition: color 0.3s ease;
+    }
+    
+    .witness-desc {
+      font-size: 0.875rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.5;
+    }
+    
+    .witness-note {
+      padding-top: 0.75rem;
+      border-top: 1px solid hsl(var(--border));
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-style: italic;
+    }
+    
+    /* ===== FINAL RIDDLE ===== */
+    .riddle-section {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .riddle-bg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: hsl(var(--burgundy) / 0.1);
+      border-radius: 50%;
+      filter: blur(100px);
+    }
+    
+    .riddle-card {
+      max-width: 700px;
+      margin: 0 auto;
+      border-radius: 0.5rem;
+      padding: 3rem;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .riddle-title {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      line-height: 1.4;
+      margin-bottom: 1.5rem;
+    }
+    
+    .riddle-subtitle {
+      font-style: italic;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    
+    .rules-list {
+      text-align: left;
+      background: hsl(var(--card) / 0.5);
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+    }
+    
+    .rules-list h3 {
+      font-size: 0.875rem;
+      letter-spacing: 0.15em;
+      margin-bottom: 1rem;
+    }
+    
+    .rules-list ul {
+      list-style: none;
+    }
+    
+    .rules-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.875rem;
+    }
+    
+    .rules-list li::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: hsl(var(--burgundy));
+      border-radius: 50%;
+      margin-top: 0.5rem;
+      flex-shrink: 0;
+    }
+    
+    .rules-list li:last-child::before {
+      background: hsl(var(--gold));
+      animation: pulseGlow 2s ease-in-out infinite;
+    }
+    
+    .riddle-hint {
+      margin-top: 2rem;
+      padding: 1rem;
+      border: 1px dashed hsl(var(--border));
+      border-radius: 0.5rem;
+    }
+    
+    /* ===== SUBMISSION ===== */
+    .submission-card {
+      max-width: 700px;
+      margin: 0 auto;
+      border-radius: 0.5rem;
+      padding: 2rem;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      color: hsl(var(--gold));
+    }
+    
+    .submit-btn {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 0.25rem;
+      font-size: 1rem;
+    }
+    
+    .autosave-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      font-size: 0.75rem;
+    }
+    
+    .autosave-dot {
+      width: 8px;
+      height: 8px;
+      background: hsl(142 76% 36%);
+      border-radius: 50%;
+    }
+    
+    /* ===== ENDING REVEAL ===== */
+    .ending-overlay {
+      position: fixed;
+      inset: 0;
+      background: hsl(var(--background));
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    
+    .ending-overlay.active {
+      display: flex;
+    }
+    
+    .ending-content {
+      max-width: 700px;
+      text-align: center;
+    }
+    
+    .ending-title {
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 2rem;
+    }
+    
+    .ending-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    
+    .ending-close {
+      padding: 0.75rem 2rem;
+      border-radius: 0.25rem;
+    }
+    
+    /* ===== RULES SECTION ===== */
+    .rules-terminal {
+      max-width: 700px;
+      margin: 0 auto;
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+    
+    .terminal-dots {
+      display: flex;
+      gap: 6px;
+    }
+    
+    .terminal-dots span {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    
+    .terminal-dots span:nth-child(1) { background: hsl(var(--burgundy) / 0.6); }
+    .terminal-dots span:nth-child(2) { background: hsl(var(--gold) / 0.4); }
+    .terminal-dots span:nth-child(3) { background: hsl(142 76% 36% / 0.4); }
+    
+    .terminal-content {
+      padding: 1.5rem;
+    }
+    
+    .terminal-line {
+      margin-bottom: 0.75rem;
+    }
+    
+    .terminal-cursor {
+      animation: pulseGlow 1s ease-in-out infinite;
+    }
+    
+    /* ===== FOOTER ===== */
+    .footer {
+      padding: 3rem 1rem;
+      text-align: center;
+    }
+    
+    .footer-divider {
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, hsl(var(--gold) / 0.3), transparent);
+    }
+    
+    .footer-brand {
+      margin-bottom: 1.5rem;
+    }
+    
+    .footer-brand h3 {
+      letter-spacing: 0.3em;
+      font-size: 1.1rem;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    
+    .footer-links a {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-decoration: none;
+      color: hsl(var(--muted-foreground));
+      transition: color 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      color: hsl(var(--gold));
+    }
+    
+    .footer-copyright {
+      padding-top: 2rem;
+      border-top: 1px solid hsl(var(--border) / 0.5);
+    }
+    
+    .footer-diamond {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+    }
+    
+    .footer-diamond-outer {
+      width: 2rem;
+      height: 2rem;
+      border: 1px solid hsl(var(--gold) / 0.3);
+      transform: rotate(45deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .footer-diamond-inner {
+      width: 0.5rem;
+      height: 0.5rem;
+      background: hsl(var(--gold) / 0.5);
+      transform: rotate(45deg);
+    }
+    
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .hero-card {
+        padding: 2rem 1.5rem;
+      }
+      
+      .case-card,
+      .riddle-card,
+      .submission-card {
+        padding: 1.5rem;
+      }
+      
+      .section {
+        padding: 3rem 1rem;
+      }
+      
+      .evidence-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .witnesses-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      }
+      
+      .footer-links {
+        gap: 1rem;
+      }
+    }
+    
+    /* ===== SECTION HEADERS ===== */
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .section-header h2 {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      margin-bottom: 1rem;
+    }
+    
+    .section-header p {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .section-divider {
+      width: 100px;
+      margin: 1.5rem auto 0;
+    }
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    /* Hidden class */
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- Grain Overlay -->
+  <div class="grain-overlay"></div>
+  
+  <!-- ===== HERO SECTION ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="vignette"></div>
+    
+    <div class="hero-content">
+      <div class="hero-card glass-card animate-fade-up">
+        <div style="margin-bottom: 1.5rem;">
+          <span class="evidence-tag">CLASSIFIED INVESTIGATION</span>
+        </div>
+        
+        <h1 class="cinematic-title hero-title text-gold glow-gold-text">HUNT 0</h1>
+        <h2 class="cinematic-title hero-subtitle text-foreground">THE THIRTEENTH GUEST</h2>
+        
+        <div class="divider-gold" style="width: 120px; margin: 0 auto 2rem;"></div>
+        
+        <p class="font-mono hero-tagline text-muted-foreground">
+          "Some presences are remembered,<br>
+          yet were never truly seen."
+        </p>
+        
+        <div class="hero-buttons">
+          <a href="#case-file" class="btn-noir">Enter the Case</a>
+          <a href="caseposter.png" download="HUNT0_Dossier.png" class="btn-outline-gold">Download Dossier</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="scroll-indicator animate-float">
+      <div class="scroll-mouse">
+        <div class="scroll-dot animate-pulse-glow"></div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- ===== CASE FILE SECTION ===== -->
+  <section class="section case-file" id="case-file">
+    <div class="container">
+      <div class="section-header">
+        <span class="evidence-tag" style="margin-bottom: 1.5rem;">CLASSIFIED — LEVEL 5</span>
+        <h2 class="cinematic-title text-foreground">THE CASE FILE</h2>
+        <p class="text-muted-foreground">November 13th, 2024 — Sade Manor</p>
+        <div class="divider-gold section-divider"></div>
+      </div>
+      
+      <div class="case-card glass-card">
+        <div class="tabs-container">
+          <button class="tab-btn active" data-tab="overview">OVERVIEW</button>
+          <button class="tab-btn" data-tab="timeline">TIMELINE</button>
+          <button class="tab-btn" data-tab="notes">RECOVERED NOTES</button>
+        </div>
+        
+        <!-- Overview Tab -->
+        <div class="tab-content active" id="tab-overview">
+          <div style="margin-bottom: 2rem;">
+            <span class="stamped">CONFIDENTIAL</span>
+          </div>
+          
+          <p class="text-foreground" style="line-height: 1.8; margin-bottom: 1.5rem;">
+            On the evening of November 13th, 2024, novelist <strong class="text-gold">Leila Sade</strong> hosted an intimate dinner at her secluded manor. Twelve guests were invited. Twelve chairs were set. The evening proceeded without incident until precisely <strong class="text-gold">9:47 PM</strong>.
+          </p>
+          
+          <p class="text-foreground" style="line-height: 1.8; margin-bottom: 1.5rem;">
+            A blackout lasting exactly <strong class="text-burgundy-glow">60 seconds</strong> plunged the dining room into complete darkness. When the lights returned, a thirteenth chair had appeared at the table. Upon it rested a black envelope containing a single card:
+          </p>
+          
+          <blockquote style="background: hsl(var(--burgundy) / 0.2); padding: 1.5rem; border-left: 3px solid hsl(var(--gold)); margin: 1.5rem 0; font-style: italic;">
+            <p class="text-gold" style="font-size: 1.1rem;">"I sat here — yet none of you saw me."</p>
+          </blockquote>
+          
+          <p class="text-muted-foreground" style="line-height: 1.8;">
+            No physical evidence of intrusion was found. No fingerprints. No footprints. No tampering with the electrical system. Yet every guest reported sensing <em>something</em> — a presence that existed only in the collective uncertainty of their memories.
+          </p>
+        </div>
+        
+        <!-- Timeline Tab -->
+        <div class="tab-content" id="tab-timeline">
+          <div class="timeline-item">
+            <span class="timeline-time">7:00 PM</span>
+            <div>
+              <p class="text-foreground">Guests begin arriving at Sade Manor</p>
+              <p class="text-muted-foreground" style="font-size: 0.875rem;">Grace Milton confirms all twelve invitations accounted for</p>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <span class="timeline-time">8:15 PM</span>
+            <div>
+              <p class="text-foreground">Dinner is served in the main dining room</p>
+              <p class="text-muted-foreground" style="font-size: 0.875rem;">Emilia Voss notes: "Twelve chairs. I designed the arrangement myself."</p>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <span class="timeline-time">9:30 PM</span>
+            <div>
+              <p class="text-foreground">Melody Hart performs a piano piece</p>
+              <p class="text-muted-foreground" style="font-size: 0.875rem;">Later claims to have heard "a thirteenth heartbeat in the room"</p>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <span class="timeline-time">9:47 PM</span>
+            <div>
+              <p class="text-foreground text-burgundy-glow" style="font-weight: 600;">THE BLACKOUT</p>
+              <p class="text-muted-foreground" style="font-size: 0.875rem;">Precisely 60 seconds of complete darkness. Ryan Cole's camera captures corrupted file.</p>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <span class="timeline-time">9:48 PM</span>
+            <div>
+              <p class="text-foreground">Lights return. The 13th chair is discovered.</p>
+              <p class="text-muted-foreground" style="font-size: 0.875rem;">Black envelope found on the seat. No one claims to have placed it.</p>
+            </div>
+          </div>
+          
+          <div class="timeline-item" style="border-bottom: none;">
+            <span class="timeline-time">10:30 PM</span>
+            <div>
+              <p class="text-foreground">Investigation begins</p>
+              <p class="text-muted-foreground" style="font-size: 0.875rem;">All twelve guests provide conflicting testimonies about what they perceived.</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Notes Tab -->
+        <div class="tab-content" id="tab-notes">
+          <div style="background: hsl(var(--muted) / 0.3); padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1.5rem;">
+            <p class="font-mono text-ash" style="font-size: 0.75rem; margin-bottom: 0.5rem;">RECOVERED NOTE #1 — Found in library</p>
+            <p class="text-foreground" style="font-style: italic;">"The most dangerous person in any room is the one no one remembers seeing."</p>
+          </div>
+          
+          <div style="background: hsl(var(--muted) / 0.3); padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1.5rem;">
+            <p class="font-mono text-ash" style="font-size: 0.75rem; margin-bottom: 0.5rem;">RECOVERED NOTE #2 — Tucked inside manuscript</p>
+            <p class="text-foreground" style="font-style: italic;">"We don't remember what happened. We remember what we believed happened."</p>
+          </div>
+          
+          <div style="background: hsl(var(--muted) / 0.3); padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1.5rem;">
+            <p class="font-mono text-ash" style="font-size: 0.75rem; margin-bottom: 0.5rem;">RECOVERED NOTE #3 — Under the 13th chair</p>
+            <p class="text-foreground" style="font-style: italic;">"Presence is not proof of existence. Absence is not proof of nonexistence."</p>
+          </div>
+          
+          <div style="border: 1px dashed hsl(var(--border)); padding: 1rem; margin-top: 1.5rem;">
+            <p class="font-mono text-muted-foreground" style="font-size: 0.75rem;">
+              ANALYST NOTE: Pattern detected in first letters of recovered notes. Significance unknown. Further analysis required.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- ===== EVIDENCE BOARD ===== -->
+  <section class="section" id="evidence">
+    <div class="container">
+      <div class="section-header">
+        <span class="evidence-tag" style="margin-bottom: 1.5rem;">7 ARTIFACTS RECOVERED</span>
+        <h2 class="cinematic-title text-foreground">EVIDENCE BOARD</h2>
+        <p class="text-muted-foreground">Each piece tells a fragment of the story. Together, they form a pattern — if you can see it.</p>
+        <div class="divider-gold section-divider"></div>
+      </div>
+      
+      <div class="evidence-grid" id="evidenceGrid">
+        <!-- Evidence cards will be generated by JavaScript -->
+      </div>
+    </div>
+  </section>
+  
+  <!-- ===== WITNESSES DIRECTORY ===== -->
+  <section class="section" id="witnesses">
+    <div class="container">
+      <div class="section-header">
+        <span class="evidence-tag" style="margin-bottom: 1.5rem;">12 TESTIMONIES</span>
+        <h2 class="cinematic-title text-foreground">THE WITNESSES</h2>
+        <p class="text-muted-foreground">Twelve people. Twelve perspectives. Twelve fragments of truth.</p>
+        <div class="divider-gold section-divider"></div>
+      </div>
+      
+      <div class="witnesses-grid" id="witnessesGrid">
+        <!-- Witness cards will be generated by JavaScript -->
+      </div>
+    </div>
+  </section>
+  
+  <!-- ===== FINAL RIDDLE ===== -->
+  <section class="section riddle-section" id="riddle">
+    <div class="riddle-bg"></div>
+    
+    <div class="container">
+      <div class="riddle-card glass-card">
+        <div style="margin-bottom: 2rem;">
+          <span class="stamped">THE FINAL QUESTION</span>
+        </div>
+        
+        <h2 class="cinematic-title riddle-title text-gold glow-gold-text">
+          Who was the Thirteenth Guest?
+        </h2>
+        
+        <p class="font-mono riddle-subtitle text-muted-foreground">
+          And why can they never be seen,<br>
+          even though they "sat" in the chair?
+        </p>
+        
+        <div class="divider-gold" style="width: 120px; margin: 0 auto 2rem;"></div>
+        
+        <div class="rules-list">
+          <h3 class="font-cinematic text-gold">SOLUTION REQUIREMENTS</h3>
+          <ul>
+            <li class="text-muted-foreground">Your answer must provide a unified, rational explanation</li>
+            <li class="text-muted-foreground">It must incorporate all contradictions within the evidence</li>
+            <li class="text-muted-foreground">Every witness testimony must be accounted for</li>
+            <li class="text-foreground">The truth lies not in what was seen, but in what was perceived</li>
+          </ul>
+        </div>
+        
+        <div class="riddle-hint">
+          <p class="font-mono text-ash" style="font-size: 0.75rem;">
+            HINT: Consider the nature of collective memory. Consider what makes someone "present." Consider who benefits from being remembered as absent.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- ===== SUBMISSION INTERFACE ===== -->
+  <section class="section" id="submit">
+    <div class="container">
+      <div class="section-header">
+        <span class="evidence-tag" style="margin-bottom: 1.5rem;">SECURE CHANNEL</span>
+        <h2 class="cinematic-title text-foreground">SUBMIT YOUR ANSWER</h2>
+        <p class="text-muted-foreground">Present your unified theory. The truth awaits those who see beyond the visible.</p>
+        <div class="divider-gold section-divider"></div>
+      </div>
+      
+      <div class="submission-card glass-card">
+        <form id="submissionForm">
+          <div class="form-group">
+            <label class="form-label" for="teamName">INVESTIGATOR / TEAM NAME</label>
+            <input type="text" id="teamName" class="input-field" placeholder="Enter your name or team name..." required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="answer">YOUR ANSWER</label>
+            <textarea id="answer" class="input-field" placeholder="Present your complete theory explaining the identity of the Thirteenth Guest and why they can never be seen..." required></textarea>
+          </div>
+          
+          <button type="submit" class="btn-noir submit-btn">Submit Answer</button>
+          
+          <div class="autosave-indicator">
+            <span class="autosave-dot animate-pulse-glow"></span>
+            <span class="font-mono text-muted-foreground">Auto-saving to local storage...</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  
+  <!-- ===== RULES SECTION ===== -->
+  <section class="section" id="rules">
+    <div class="container">
+      <div class="rules-terminal terminal-panel">
+        <div class="terminal-header">
+          <div class="terminal-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <span class="font-mono text-gold" style="margin-left: 1rem; font-size: 0.75rem;">RULES & GUIDELINES — hunt0.protocol</span>
+        </div>
+        
+        <div class="terminal-content font-mono" style="font-size: 0.875rem;">
+          <p class="text-muted-foreground terminal-line">
+            <span class="text-gold">$</span> cat /etc/hunt0/rules.md
+          </p>
+          
+          <div style="border-left: 2px solid hsl(var(--burgundy) / 0.5); padding-left: 1rem; margin: 1rem 0;">
+            <p class="text-muted-foreground terminal-line"><span class="text-burgundy-glow">[01]</span> No brute force attacks or automated submission attempts</p>
+            <p class="text-muted-foreground terminal-line"><span class="text-burgundy-glow">[02]</span> Do not publish solutions or spoilers publicly</p>
+            <p class="text-muted-foreground terminal-line"><span class="text-burgundy-glow">[03]</span> No reverse engineering of the submission system</p>
+            <p class="text-muted-foreground terminal-line"><span class="text-burgundy-glow">[04]</span> Collaboration is permitted; credit all team members</p>
+            <p class="text-muted-foreground terminal-line"><span class="text-burgundy-glow">[05]</span> The Nano Group reserves final authority on all decisions</p>
+            <p class="text-muted-foreground terminal-line"><span class="text-burgundy-glow">[06]</span> This is a fictional challenge — all characters are imaginary</p>
+          </div>
+          
+          <div style="border-top: 1px solid hsl(var(--border)); padding-top: 1rem; margin-top: 1rem;">
+            <p class="text-ash terminal-line"><span class="text-gold">$</span> echo "Good luck, investigator."</p>
+            <p class="text-foreground terminal-line">Good luck, investigator.</p>
+            <p class="text-gold terminal-cursor" style="margin-top: 1rem;">█</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-divider"></div>
+    
+    <div class="footer-brand">
+      <h3 class="cinematic-title text-gold">NANO GROUP</h3>
+      <p class="font-mono text-muted-foreground" style="font-size: 0.75rem; margin-top: 0.5rem;">PRESENTS</p>
+    </div>
+    
+    <p class="font-cinematic text-foreground" style="opacity: 0.6; letter-spacing: 0.2em; font-size: 0.875rem; margin-bottom: 2rem;">
+      HUNT 0 — THE THIRTEENTH GUEST
+    </p>
+    
+    <div class="footer-links">
+      <a href="#case-file">CASE FILE</a>
+      <a href="#evidence">EVIDENCE</a>
+      <a href="#witnesses">WITNESSES</a>
+      <a href="#submit">SUBMIT</a>
+    </div>
+    
+    <div class="footer-copyright">
+      <p class="font-mono text-ash" style="font-size: 0.75rem;">
+        © <span id="currentYear"></span> Nano Group. All rights reserved.
+      </p>
+      <p class="text-muted-foreground" style="font-size: 0.75rem; margin-top: 0.5rem;">
+        This is a fictional interactive challenge. All characters and events are imaginary.
+      </p>
+    </div>
+    
+    <div class="footer-diamond">
+      <div class="footer-diamond-outer">
+        <div class="footer-diamond-inner animate-pulse-glow"></div>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- ===== ENDING REVEAL OVERLAY ===== -->
+  <div class="ending-overlay" id="endingOverlay">
+    <div class="ending-content animate-reveal">
+      <span class="stamped" style="margin-bottom: 2rem; display: inline-block;">CASE CLOSED</span>
+      
+      <h2 class="cinematic-title ending-title text-gold glow-gold-text">THE TRUTH REVEALED</h2>
+      
+      <div class="divider-gold" style="width: 120px; margin: 0 auto 2rem;"></div>
+      
+      <p class="ending-text text-foreground">
+        The Thirteenth Guest was never a person who entered the room.
+      </p>
+      
+      <p class="ending-text text-muted-foreground">
+        It was a <strong class="text-gold">psychological presence</strong> — a collective construction of memory, doubt, and perception. When twelve people experienced a moment of uncertainty together, their minds filled the void with a presence that felt real.
+      </p>
+      
+      <p class="ending-text text-muted-foreground">
+        The chair, the envelope, the message — all were placed by <strong class="text-burgundy-glow">Leila Sade herself</strong>, the novelist who understood that the most powerful character is one that exists only in the minds of those who believe they witnessed something that was never truly there.
+      </p>
+      
+      <p class="font-mono text-ash" style="font-style: italic; margin-bottom: 2rem;">
+        "We don't remember what happened. We remember what we believed happened."
+      </p>
+      
+      <button class="btn-outline-gold ending-close" onclick="closeEnding()">Return to the Case</button>
+    </div>
+  </div>
+  
+  <script>
+    // ===== DATA =====
+    const evidenceData = [
+      {
+        id: 1,
+        title: "Host Testimony",
+        source: "Leila Sade",
+        type: "WITNESS STATEMENT",
+        content: '"I felt a presence before the lights went out. Not a person — a weight in the room, like the air had thickened."',
+        detail: "Leila Sade's account is the most detailed yet the most metaphysical. She describes the moments before the blackout as 'narratively inevitable,' as if the evening had been building toward that exact moment. She refuses to speculate on the identity of the 13th guest, saying only: 'Some characters write themselves into existence.'"
+      },
+      {
+        id: 2,
+        title: "Audio Impression",
+        source: "Dr. Ethan Ward",
+        type: "MEDICAL OBSERVATION",
+        content: '"I heard breathing that wasn\'t mine. Measured. Deliberate. As if someone was counting."',
+        detail: "Dr. Ward's medical training makes his testimony particularly compelling. He noted his own heart rate remained steady at 72 BPM during the blackout — unusual given the circumstances. He theorizes the 'extra breathing' may have been his own, reflected back by the room's acoustics, though this explanation fails to satisfy him."
+      },
+      {
+        id: 3,
+        title: "False-Face Memory",
+        source: "Adrian Mercer",
+        type: "PSYCHOLOGICAL ANALYSIS",
+        content: '"I can describe a face I saw — but I know it\'s a face my mind constructed. A composite of everyone at the table."',
+        detail: "As a psychologist specializing in memory reconstruction, Mercer's testimony carries weight. He describes the phenomenon of 'false-face syndrome' — the brain's tendency to construct a face from available data when confronted with ambiguity. He believes all witnesses who claim to have 'seen' someone are experiencing collective confabulation."
+      },
+      {
+        id: 4,
+        title: "Deleted Photograph",
+        source: "Ryan Cole",
+        type: "DIGITAL EVIDENCE",
+        content: '"My camera took a photo at 9:47 PM. The file exists but won\'t open. Something is in there."',
+        detail: "Cole's camera, set to interval shooting, captured an image during the blackout. Metadata confirms the file exists. Multiple recovery attempts have produced only corrupted data — except for a single reconstructed pixel region showing what appears to be fabric. Burgundy fabric. The same color as the dining chairs."
+      },
+      {
+        id: 5,
+        title: "Library Note",
+        source: "Unknown Author",
+        type: "DISCOVERED DOCUMENT",
+        content: '"No one notices the person who does not wish to be seen."',
+        detail: "Found tucked inside a book on Leila's shelf: 'The Psychology of Invisibility' by Dr. Marcus Veil. The note was handwritten on aged paper. Handwriting analysis is inconclusive — it shares characteristics with Leila's writing but also with several other guests. The book itself contains extensive marginalia in different handwriting styles."
+      },
+      {
+        id: 6,
+        title: "Novel Draft Line",
+        source: "Leila Sade's Manuscript",
+        type: "LITERARY EVIDENCE",
+        content: '"One exists only in memory. Without memory, existence becomes a question mark."',
+        detail: "This line appears on page 213 of Leila's unpublished manuscript, 'The Absence.' The novel concerns a character who slowly erases themselves from collective memory. Notably, page 213 is the only page in the manuscript that shows signs of recent editing — the ink is fresher, the paper less worn."
+      },
+      {
+        id: 7,
+        title: "The 13th Chair",
+        source: "Physical Evidence",
+        type: "FORENSIC ANALYSIS",
+        content: '"Carved into the wood: the letter \'L\'. No fingerprints. No tool marks. As if it had always been there."',
+        detail: "The chair itself presents the greatest mystery. It matches the other 12 perfectly — same wood grain, same age, same wear patterns. Yet the manor's records show only 12 chairs were ever purchased. The carved 'L' on the underside appears decades old, yet the wood fibers suggest recent disturbance. Forensic experts are divided: some believe the carving is original, others insist it's a masterful forgery."
+      }
+    ];
+    
+    const witnessesData = [
+      { name: "Leila Sade", role: "Host / Novelist", description: "Author of psychological thrillers exploring the nature of memory and identity.", note: "Her latest manuscript may hold the key." },
+      { name: "Nora Caldwell", role: "Editor", description: "Leila's longtime editor and confidante. Known for her sharp eye and sharper wit.", note: "Claims to have seen a silhouette." },
+      { name: "Oliver Grant", role: "Relative", description: "Leila's estranged nephew. Recently reconnected after years of silence.", note: "Arrived late. Left early." },
+      { name: "Serena Hale", role: "Artist", description: "Painter specializing in portraits from memory. Her work hangs throughout the manor.", note: "Sketched the 13th chair from memory." },
+      { name: "Adrian Mercer", role: "Psychologist", description: "Specialist in memory reconstruction and false recollection syndrome.", note: "Experiences 'false-face' phenomenon." },
+      { name: "Caleb Rhodes", role: "Programmer", description: "Tech consultant who maintains the manor's security systems.", note: "Systems showed no breach." },
+      { name: "Emilia Voss", role: "Designer", description: "Interior designer who decorated the dining room. Knows every piece of furniture.", note: "Swears there were only 12 chairs." },
+      { name: "Dr. Ethan Ward", role: "Doctor", description: "Family physician with a background in neurology and sensory perception.", note: "Heard breathing in the dark." },
+      { name: "Ryan Cole", role: "Photographer", description: "Documentary photographer. His camera was set to interval capture.", note: "Corrupted file from 9:47 PM." },
+      { name: "Melody Hart", role: "Musician", description: "Concert pianist who performed before dinner. Exceptionally sensitive hearing.", note: "Heard a 13th heartbeat." },
+      { name: "Hayden Cross", role: "Fiancé", description: "Leila's fiancé of two years. Former investigative journalist.", note: "Taking detailed notes." },
+      { name: "Grace Milton", role: "Housekeeper", description: "Served the Sade family for thirty years. Knows the manor's every secret.", note: "Set the table for 12." }
+    ];
+    
+    // Solution keywords (obfuscated)
+    const SOLUTION_KEYWORDS = [
+      'psychological', 'collective', 'memory', 'perception',
+      'leila', 'constructed', 'imagined', 'fictional',
+      'mind', 'belief', 'illusion', 'created'
+    ];
+    
+    // ===== INITIALIZATION =====
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set current year
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
+      
+      // Initialize components
+      initTabs();
+      renderEvidence();
+      renderWitnesses();
+      initForm();
+      initSecurity();
+      
+      // Load saved data
+      loadSavedData();
+    });
+    
+    // ===== TABS =====
+    function initTabs() {
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const tabId = this.dataset.tab;
+          
+          // Update button states
+          tabBtns.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          
+          // Update content visibility
+          document.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.remove('active');
+          });
+          document.getElementById('tab-' + tabId).classList.add('active');
+        });
+      });
+    }
+    
+    // ===== EVIDENCE BOARD =====
+    let expandedEvidence = null;
+    
+    function renderEvidence() {
+      const grid = document.getElementById('evidenceGrid');
+      
+      evidenceData.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'evidence-card glass-card glass-card-hover';
+        card.dataset.id = item.id;
+        
+        card.innerHTML = `
+          <div class="evidence-header">
+            <div>
+              <span class="evidence-tag" style="font-size: 0.6rem; margin-bottom: 0.5rem; display: inline-block;">${item.type}</span>
+              <h3 class="font-cinematic text-foreground" style="font-size: 1.1rem;">${item.title}</h3>
+              <p class="text-gold" style="font-size: 0.875rem;">${item.source}</p>
+            </div>
+            <span class="evidence-number">0${item.id}</span>
+          </div>
+          <blockquote class="evidence-quote text-muted-foreground" style="font-size: 0.875rem;">
+            ${item.content}
+          </blockquote>
+          <div class="evidence-detail">
+            <p class="text-foreground" style="font-size: 0.875rem; line-height: 1.6; opacity: 0.8;">
+              ${item.detail}
+            </p>
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem;">
+              <span style="width: 8px; height: 8px; background: hsl(var(--gold)); border-radius: 50%;" class="animate-pulse-glow"></span>
+              <span class="font-mono text-muted-foreground" style="font-size: 0.75rem;">ANALYSIS IN PROGRESS</span>
+            </div>
+          </div>
+          <div class="evidence-expand">
+            <span class="font-mono text-muted-foreground" style="font-size: 0.75rem;">[ EXPAND ]</span>
+          </div>
+        `;
+        
+        card.addEventListener('click', function() {
+          toggleEvidence(item.id);
+        });
+        
+        grid.appendChild(card);
+      });
+    }
+    
+    function toggleEvidence(id) {
+      const cards = document.querySelectorAll('.evidence-card');
+      
+      cards.forEach(card => {
+        if (parseInt(card.dataset.id) === id) {
+          const isExpanded = card.classList.contains('expanded');
+          card.classList.toggle('expanded');
+          card.querySelector('.evidence-expand span').textContent = isExpanded ? '[ EXPAND ]' : '[ COLLAPSE ]';
+        } else {
+          card.classList.remove('expanded');
+          card.querySelector('.evidence-expand span').textContent = '[ EXPAND ]';
+        }
+      });
+    }
+    
+    // ===== WITNESSES =====
+    function renderWitnesses() {
+      const grid = document.getElementById('witnessesGrid');
+      
+      witnessesData.forEach((witness, index) => {
+        const card = document.createElement('div');
+        card.className = 'witness-card glass-card glass-card-hover';
+        
+        card.innerHTML = `
+          <div class="witness-header">
+            <span class="witness-number">${String(index + 1).padStart(2, '0')}</span>
+            <span class="evidence-tag" style="font-size: 0.6rem;">${witness.role}</span>
+          </div>
+          <h3 class="witness-name text-foreground">${witness.name}</h3>
+          <p class="witness-desc text-muted-foreground">${witness.description}</p>
+          <div class="witness-note text-burgundy-glow">"${witness.note}"</div>
+        `;
+        
+        grid.appendChild(card);
+      });
+    }
+    
+    // ===== FORM =====
+    function initForm() {
+      const form = document.getElementById('submissionForm');
+      const teamNameInput = document.getElementById('teamName');
+      const answerInput = document.getElementById('answer');
+      
+      // Auto-save
+      let saveTimeout;
+      
+      function autoSave() {
+        clearTimeout(saveTimeout);
+        saveTimeout = setTimeout(() => {
+          localStorage.setItem('hunt0_teamName', teamNameInput.value);
+          localStorage.setItem('hunt0_answer', answerInput.value);
+        }, 1000);
+      }
+      
+      teamNameInput.addEventListener('input', autoSave);
+      answerInput.addEventListener('input', autoSave);
+      
+      // Form submission
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const answer = answerInput.value.toLowerCase();
+        let matchCount = 0;
+        
+        SOLUTION_KEYWORDS.forEach(keyword => {
+          if (answer.includes(keyword)) {
+            matchCount++;
+          }
+        });
+        
+        if (matchCount >= 4) {
+          showEnding();
+        } else {
+          alert('Your theory is intriguing, but it doesn\'t fully explain the mystery. Consider all the evidence and testimonies more carefully.');
+        }
+      });
+    }
+    
+    function loadSavedData() {
+      const savedTeamName = localStorage.getItem('hunt0_teamName');
+      const savedAnswer = localStorage.getItem('hunt0_answer');
+      
+      if (savedTeamName) {
+        document.getElementById('teamName').value = savedTeamName;
+      }
+      if (savedAnswer) {
+        document.getElementById('answer').value = savedAnswer;
+      }
+    }
+    
+    // ===== ENDING =====
+    function showEnding() {
+      const overlay = document.getElementById('endingOverlay');
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeEnding() {
+      const overlay = document.getElementById('endingOverlay');
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    
+    // ===== SECURITY (SOFT) =====
+    function initSecurity() {
+      // Disable right-click
+      document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+      });
+      
+      // Block dev tools shortcuts
+      document.addEventListener('keydown', function(e) {
+        if (
+          e.key === 'F12' ||
+          (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+          (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+          (e.ctrlKey && e.key === 'u')
+        ) {
+          e.preventDefault();
+        }
+      });
+    }
+    
+    // ===== SMOOTH SCROLL =====
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
 </html>
